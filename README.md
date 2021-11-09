@@ -1,4 +1,2 @@
 # Lab5_Part2-Embedded-
-
-
-#1111111
+In this part of the lab, we were asked to generate a software PWM, controlling the LED brightness with a 10% duty cycle and 500ms period. To do so, we first wrote the C code in code composer to create PWM(software). We set the TACCRO values to  62500-1 and the TACCR1 value to 6250-1. To calculate the duty cycle; we divide the (TACCR1/TACCRO)* 100(we got 10 percent for duty cycle as the question required. We got the frequency value and the period value from lab 2. We later set the clock type (SMCLK) and the clock divider as 8(ID_3). Then we set the red led to toggle ( P1OUT ^= BIT6) inside the while loop. After we compiled the code,  we saw the red LED toggle and, then we connected the ADLAM2000 to see the resulting graph as shown in the figure above. 
