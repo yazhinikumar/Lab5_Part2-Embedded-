@@ -1,2 +1,26 @@
 # Lab5_Part2-Embedded-
-In this part of the lab, we were asked to generate a software PWM, controlling the LED brightness with a 10% duty cycle and 500ms period. To do so, we first wrote the C code in code composer to create PWM(software). We set the TACCRO values to  62500-1 and the TACCR1 value to 6250-1. To calculate the duty cycle; we divide the (TACCR1/TACCRO)* 100(we got 10 percent for duty cycle as the question required. We got the frequency value and the period value from lab 2. We later set the clock type (SMCLK) and the clock divider as 8(ID_3). Then we set the red led to toggle ( P1OUT ^= BIT6) inside the while loop. After we compiled the code,  we saw the red LED toggle and, then we connected the ADLAM2000 to see the resulting graph as shown in the figure above. 
+#include "msp430G2553.h"
+
+//#define LED_R BIT6;
+
+void main(void)
+{
+    WDTCTL = WDTPW + WDTHOLD;  // Stop WDT
+     P1DIR |= BIT6;             // P1.6 set for output
+     P1OUT = 0x00;
+     P1SEL |= BIT6;             // selects TA0.1 output signal
+
+
+     TACCR0 = 62500-1;             // PWM Time Period/ frequency 1MHz
+     TACCTL1 = OUTMOD_7;          // reset/set mode 7 for output signal
+     TACCR1 = 6250-1;                // PWM Duty cycle is 10%
+     TACTL = TASSEL_2 + ID_3+MC_1;   // SMCLK and Up Mode (8)
+
+
+     while(1){
+
+
+         P1OUT ^= BIT6; // Toggles red LED
+     }
+
+}
